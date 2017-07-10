@@ -1,11 +1,11 @@
 # multitenant-yii2-application
-##How this applies to your application?
+## How this applies to your application?
 Just an example of implementation of multi-tenant application that connect shared database.
 This example shows how to use one yii2 codebase to deliver many websites with shared database, where each multi-tenant table has a 'tenant' column that defines application that inserted it.
 You can use this solution in cases where you need a network of small websites that has to store their data in one shared
 database in order to allow application-1 to access data from application-2 and application-3 very quick 
 and you don't want or can't develop separate data access layer (not enough time or budget).
-#####Example: 
+##### Example: 
 You are making a network of landing pages for candy shop that is going be opened shortly. You want to use different 
 layouts to try out best web-marketing campaign. On each landing page you are gathering your visitors emails in order to
 send newsletters after your shop is opened.
@@ -26,13 +26,13 @@ ID    email           tenant_id   created_at
 You don't want to send a newsletter to john@doe.com twice, right? Moreover, you want to send a fancy newsletter to him,
 the one that includes both, 'gummy bears' and 'chocolate' blocks.
 
-##Layout solution:
+## Layout solution:
 In this example I am using Yii2 themes and special web-hostname based pattern to build a correct routing to them.
 As you can see, in folder `\frontend` there are two folders called `\frontend\tenant1` and `\frontend\tenant2` - these 
 are the folders themes are using layout and views from. In `\config\hosts.php` global constant CURRENT_TENANT is set
 there. It is used as the part of layout routes.
 
-##DB solution explained:
+## DB solution explained:
 You can find all the logic in the folder `\components`. Basically, `\components\MultiActiveQuery` and
 `\components\MultiActiveRecord` classes are responsible for modification sql queries produced by application, by applying correct tenant field.
 
