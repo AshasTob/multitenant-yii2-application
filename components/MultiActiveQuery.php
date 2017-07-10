@@ -9,15 +9,15 @@ use yii\db\ActiveQuery;
  * Class MultiActiveQuery
  *
  * @package components
- * @property integer[] $targetSites
+ * @property integer[] targetTenants
  */
 class MultiActiveQuery extends ActiveQuery
 {
-    public $targetSites;
+    public $targetTenants;
     public $modelClassAlias;
 
     /**
-     * MultiActiveQuery has to preserve the alias in order to prepare correct site injection in prepare() method.
+     * MultiActiveQuery has to preserve the alias in order to prepare correct tenant injection in prepare() method.
      *
      * @param string $alias
      *
@@ -44,23 +44,23 @@ class MultiActiveQuery extends ActiveQuery
             $this->modelClassAlias = $modelClass::tableName();
         }
 
-        if (empty($this->targetSites)) {
-            $this->targetSites = [CURRENT_TENANT_ID];
+        if (empty($this->targetTenants)) {
+            $this->targetTenants = [CURRENT_TENANT_ID];
         }
-        $query->andWhere(["{$this->modelClassAlias}.site" => $this->targetSites]);
+        $query->andWhere(["{$this->modelClassAlias}.tenant" => $this->targetTenants]);
 
 
         return $query;
     }
 
     /**
-     * @param integer[] $siteIds
+     * @param integer[] $tenantIds
      *
      * @return $this
      */
-    public function acrossSites($siteIds)
+    public function acrossTenants($tenantIds)
     {
-        $this->targetSites = $siteIds;
+        $this->targetTenants = $tenantIds;
 
         return $this;
     }

@@ -39,7 +39,7 @@ class MultiActiveRecord extends ActiveRecord
      */
     public static function updateAll($attributes, $condition = '', $params = [])
     {
-        return parent::updateAll($attributes, self::addSiteFilter($condition), $params);
+        return parent::updateAll($attributes, self::addTenantFilter($condition), $params);
     }
 
     /**
@@ -47,7 +47,7 @@ class MultiActiveRecord extends ActiveRecord
      */
     public static function updateAllCounters($attributes, $condition = '', $params = [])
     {
-        return parent::updateAllCounters($attributes, self::addSiteFilter($condition), $params);
+        return parent::updateAllCounters($attributes, self::addTenantFilter($condition), $params);
     }
 
     /**
@@ -55,7 +55,7 @@ class MultiActiveRecord extends ActiveRecord
      */
     public static function deleteAll($condition = '', $params = [])
     {
-        return parent::deleteAll(self::addSiteFilter($condition), $params);
+        return parent::deleteAll(self::addTenantFilter($condition), $params);
     }
 
     /**
@@ -63,7 +63,7 @@ class MultiActiveRecord extends ActiveRecord
      *
      * @return array|string
      */
-    protected static function addSiteFilter($condition)
+    protected static function addTenantFilter($condition)
     {
         if (defined('CURRENT_TENANT_ID')) {
             switch (true) {
